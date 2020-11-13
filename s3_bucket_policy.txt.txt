@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1605242564150",
+    "Statement": [
+        {
+            "Sid": "Stmt1605242559607",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::484705589092:role/TestRole"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": "arn:aws:s3:::sudharsanbucket/*"
+        }
+    ]
+}

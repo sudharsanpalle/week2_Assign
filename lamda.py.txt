@@ -1,0 +1,24 @@
+import json
+import boto3
+
+def lambda_handler(event, context):
+    
+    sts_connection = boto3.client('sts')
+    acct_b = sts_connection.assume_role(RoleArn="arn:aws:iam::484705589092:role/TestRole",  RoleSessionName="cross_acct_lambda" )
+    # TODO implement
+    
+    ACCESS_KEY = acct_b['Credentials']['AccessKeyId']
+    SECRET_KEY = acct_b['Credentials']['SecretAccessKey']
+    SESSION_TOKEN = acct_b['Credentials']['SessionToken']
+    
+    print(ACCESS_KEY)
+    print(SESSION_TOKEN)
+    print(SESSION_TOKEN)
+    s3 = boto3.resource('s3',
+        aws_access_key_id=ACCESS_KEY,
+        aws_secret_access_key=SECRET_KEY,
+        aws_session_token=SESSION_TOKEN,
+    )
+    content="File Created by Sudharsan Palle"
+    s3.Object('nihir-test2', 'Sudharsan_Palle.txt').put(Body=content)
+    return "Hello from Lambda"
